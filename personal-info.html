@@ -18,33 +18,24 @@
       <button type='submit' class='btn primary'>Tiếp tục</button>
     </form>
   </main>
-
   <script>
     document.getElementById('info-form').addEventListener('submit', async function (e) {
       e.preventDefault();
-
       const formData = {
         fullname: this.fullname.value,
         email: this.email.value,
         phone: this.phone.value
       };
-
       try {
         const res = await fetch('https://downloadfreeyourcv.onrender.com/info', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
-
         const result = await res.json();
-
         if (res.ok || result.message === 'Lưu thông tin thành công!') {
           alert(result.message || 'Lưu thông tin thành công!');
-          
-          // ✅ Lưu vào localStorage để dùng ở apply-template.html
           localStorage.setItem('userInfo', JSON.stringify(formData));
-
-          // ✅ Chuyển sang màn chọn template
           window.location.href = 'template-list.html';
         } else {
           alert(result.message || 'Không thể lưu thông tin!');
