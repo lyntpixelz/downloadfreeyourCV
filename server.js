@@ -35,4 +35,8 @@ console.log("👉 password:", req.body.password);
 });
 
 app.listen(3000, () => console.log('🚀 Server chạy tại http://localhost:3000'));
+if (!fullname || !email || !password) {
+  console.log("❗ Thiếu dữ liệu đầu vào!");
+  return res.status(400).json({ message: 'Dữ liệu không hợp lệ' });
+}
 
