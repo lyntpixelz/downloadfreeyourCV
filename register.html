@@ -40,10 +40,16 @@
           });
 
           const result = await res.json();
-          alert(result.message || 'Đăng ký thành công!');
+
+          if (result.message === 'Đăng ký thành công!') {
+            alert(result.message);
+            window.location.href = 'login.html'; // ✅ Chuyển đến trang Đăng nhập
+          } else {
+            alert(result.message || 'Đăng ký thất bại!');
+          }
         } catch (error) {
-          alert('Đăng ký thất bại. Vui lòng thử lại sau.');
-          console.error(error);
+          alert('Đăng ký lỗi. Vui lòng thử lại sau.');
+          console.error('Đăng ký lỗi:', error);
         }
       });
     }
