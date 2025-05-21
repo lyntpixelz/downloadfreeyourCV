@@ -21,7 +21,6 @@ if (registerForm) {
 
       if (res.ok || result.message === 'Đăng ký thành công!') {
         alert(result.message || 'Đăng ký thành công!');
-        // ✅ Chuyển sang trang đăng nhập
         window.location.href = 'login.html';
       } else {
         alert(result.message || 'Đăng ký thất bại!');
@@ -55,6 +54,10 @@ if (loginForm) {
 
       if (res.ok || result.message === 'Đăng nhập thành công!') {
         alert(result.message || 'Đăng nhập thành công!');
+        
+        // ✅ Lưu thông tin người dùng vào localStorage
+        localStorage.setItem('loggedInUser', JSON.stringify(result.user));
+
         // ✅ Chuyển đến dashboard
         window.location.href = 'dashboard.html';
       } else {
@@ -90,8 +93,11 @@ if (infoForm) {
 
       if (res.ok || result.message === 'Lưu thông tin thành công!') {
         alert(result.message || 'Lưu thành công!');
-        // ✅ Chuyển tới bước tiếp theo (ví dụ: chọn template)
-        window.location.href = 'choose-template.html'; // Đổi tên theo thực tế
+
+        // ✅ Lưu thông tin vào localStorage để dùng cho apply-template
+        localStorage.setItem('userInfo', JSON.stringify({ fullname, email, phone }));
+
+        window.location.href = 'template-list.html';
       } else {
         alert(result.message || 'Không thể lưu thông tin!');
       }
