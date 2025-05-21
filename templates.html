@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang='vi'>
+<head>
+  <meta charset='UTF-8'>
+  <title>Chọn Template & Preview</title>
+  <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+  <header class='navbar'>
+    <a href='dashboard.html' class='logo'>Tạo CV</a>
+  </header>
+  <main class='container flex'>
+    <aside class='sidebar'>
+      <input type='text' id='filter-name' placeholder='Tìm theo tên'>
+      <input type='text' id='filter-color' placeholder='Tông màu'>
+      <input type='text' id='filter-purpose' placeholder='Mục đích sử dụng'>
+      <div id='pagination'></div>
+    </aside>
+    <section class='content'>
+      <h2>Chọn Template & Preview</h2>
+      <div class='templates-grid' id='template-list'></div>
+      <div class='preview' id='template-preview'></div>
+    </section>
+  </main>
+  <script src='script.js'></script>
+</body>
+</html>
