@@ -4,15 +4,47 @@
   <meta charset='UTF-8'>
   <title>My CV</title>
   <link rel='stylesheet' href='style.css'>
+  <style>
+    .cv-item {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
   <header class='navbar'>
-    <a href='dashboard.html' class='logo'>Tạo CV</a>
+    <span class='logo'>Tạo CV</span>
+    <div class="auth-buttons">
+      <a href="login.html">Đăng nhập</a>
+      <a href="register.html">Đăng ký</a>
+    </div>
   </header>
   <main class='container'>
     <h2>My CV</h2>
     <ul id='cv-list'></ul>
   </main>
-  <script src='script.js'></script>
+  <script>
+    const cvList = document.getElementById('cv-list');
+    const savedCVs = JSON.parse(localStorage.getItem('savedCVs')) || [];
+
+    if (savedCVs.length === 0) {
+      cvList.innerHTML = '<li>Chưa có CV nào được lưu.</li>';
+    } else {
+      savedCVs.forEach((cv, index) => {
+        const li = document.createElement('li');
+        li.className = 'cv-item';
+        li.innerHTML = `
+          <strong>${cv.fullname}</strong><br>
+          📧 ${cv.email} | 📱 ${cv.phone}<br>
+          🧩 Template: <em>${cv.templateId}</em><br>
+          🕒 Lưu lúc: <small>${cv.createdAt}</small>
+        `;
+        cvList.appendChild(li);
+      });
+    }
+  </script>
 </body>
 </html>
