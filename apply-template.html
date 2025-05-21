@@ -26,10 +26,8 @@
   <header class="navbar">
     <a href="dashboard.html" class="logo">Tạo CV</a>
   </header>
-
   <main class="container">
     <h2>Xem trước CV theo Template</h2>
-
     <div class="cv-preview" id="cv-preview">
       <div class="cv-header">
         <h1 id="cv-fullname">Họ tên</h1>
@@ -41,36 +39,21 @@
         <p>Chưa có nội dung...</p>
       </div>
     </div>
-
     <div style="text-align:center; margin-top: 20px;">
-      <!-- ✅ Chỉ hiện nếu đã đăng nhập -->
-      <div id="save-btn" hidden>
-        <button onclick="saveCV()">Lưu CV</button>
-      </div>
+      <button onclick="saveCV()">Lưu CV</button>
       <button onclick="exportPDF()">Export Template (PDF)</button>
     </div>
   </main>
-
   <script>
     const info = JSON.parse(localStorage.getItem('userInfo')) || {};
     const templateId = localStorage.getItem('selectedTemplate') || 'template1';
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-
-    // Gán thông tin người dùng vào CV
     document.getElementById('cv-fullname').innerText = info.fullname || 'Họ tên';
     document.getElementById('cv-email').innerText = info.email || 'Email';
     document.getElementById('cv-phone').innerText = info.phone || 'Số điện thoại';
     document.getElementById('template-body').classList.add(templateId);
-
-    // ✅ Hiển thị nút Lưu nếu đã đăng nhập
-    if (loggedInUser && loggedInUser.email) {
-      document.getElementById('save-btn').removeAttribute('hidden');
-    }
-
     function saveCV() {
-      alert('CV đã được lưu (chức năng lưu sẽ triển khai sau).');
+      alert('CV đã được lưu (chức năng lưu thực hiện sau).');
     }
-
     function exportPDF() {
       const element = document.getElementById('cv-preview');
       html2pdf().set({
