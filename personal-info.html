@@ -12,12 +12,43 @@
   <main class='container'>
     <h2>Nhập thông tin cá nhân</h2>
     <form id='info-form'>
-      <input type='text' placeholder='Họ tên' required>
-      <input type='email' placeholder='Email' required>
-      <input type='tel' placeholder='Số điện thoại'>
+      <input type='text' name='fullname' placeholder='Họ tên' required>
+      <input type='email' name='email' placeholder='Email' required>
+      <input type='tel' name='phone' placeholder='Số điện thoại'>
       <button type='submit' class='btn primary'>Tiếp tục</button>
     </form>
   </main>
-  <script src='script.js'></script>
+
+  <script>
+    document.getElementById('info-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = {
+        fullname: this.fullname.value,
+        email: this.email.value,
+        phone: this.phone.value
+      };
+
+      try {
+        const res = await fetch('https://downloadfreeyourcv.onrender.com/info', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          alert(result.message || 'Lưu thông tin thành công!');
+          window.location.href = 'choose-template.html'; // 🔄 hoặc chuyển bước tiếp theo
+        } else {
+          alert(result.message || 'Không thể lưu thông tin!');
+        }
+      } catch (error) {
+        alert('Lỗi hệ thống khi lưu thông tin.');
+        console.error(error);
+      }
+    });
+  </script>
 </body>
 </html>
