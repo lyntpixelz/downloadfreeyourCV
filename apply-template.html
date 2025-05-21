@@ -1,22 +1,64 @@
 <!DOCTYPE html>
-<html lang='vi'>
+<html lang="vi">
 <head>
-  <meta charset='UTF-8'>
-  <title>Áp dụng Template</title>
-  <link rel='stylesheet' href='style.css'>
+  <meta charset="UTF-8">
+  <title>Xem trước CV</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .cv-preview {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 2px solid #ccc;
+      background-color: #f9f9f9;
+    }
+    .cv-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .cv-section {
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
 <body>
-  <header class='navbar'>
-    <a href='dashboard.html' class='logo'>Tạo CV</a>
+  <header class="navbar">
+    <a href="dashboard.html" class="logo">Tạo CV</a>
   </header>
-  <main class='container flex'>
-    <section class='editor'>
-      <div id='cv-editor'></div>
-    </section>
-    <aside class='actions'>
-      <button id='create-cv' class='btn primary'>Tạo mới</button>
-    </aside>
+
+  <main class="container">
+    <h2>Xem trước CV theo Template</h2>
+    <div class="cv-preview" id="cv-preview">
+      <div class="cv-header">
+        <h1 id="cv-fullname">Họ tên</h1>
+        <p id="cv-email">Email</p>
+        <p id="cv-phone">Số điện thoại</p>
+      </div>
+      <div class="cv-section">
+        <strong>Giới thiệu bản thân</strong>
+        <p>Chưa có nội dung...</p>
+      </div>
+      <!-- Có thể bổ sung thêm phần kỹ năng, kinh nghiệm, học vấn -->
+    </div>
+
+    <div style="text-align:center; margin-top: 20px;">
+      <button onclick="saveCV()">Lưu CV</button>
+    </div>
   </main>
-  <script src='script.js'></script>
+
+  <script>
+    // Lấy thông tin từ localStorage (hoặc bạn có thể dùng API)
+    const info = JSON.parse(localStorage.getItem('userInfo')) || {};
+    const templateId = localStorage.getItem('selectedTemplate') || 'template1';
+
+    document.getElementById('cv-fullname').innerText = info.fullname || 'Họ tên';
+    document.getElementById('cv-email').innerText = info.email || 'Email';
+    document.getElementById('cv-phone').innerText = info.phone || 'Số điện thoại';
+
+    function saveCV() {
+      alert('CV đã được lưu (chức năng lưu thực hiện sau).');
+      // Có thể gọi API POST tới /save-cv nếu muốn lưu vào MongoDB
+    }
+  </script>
 </body>
 </html>
