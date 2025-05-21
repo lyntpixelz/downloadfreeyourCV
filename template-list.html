@@ -35,7 +35,6 @@
   <header class="navbar">
     <a href="dashboard.html" class="logo">Tạo CV</a>
   </header>
-
   <main class="container">
     <h2>Chọn một mẫu CV</h2>
     <div class="template-grid">
@@ -47,19 +46,11 @@
         <img src="templates/template2.png" alt="Template 2">
         <button onclick="selectTemplate('template2')">Chọn</button>
       </div>
-      <div class="template-card">
-        <img src="templates/template3.png" alt="Template 3">
-        <button onclick="selectTemplate('template3')">Chọn</button>
-      </div>
     </div>
   </main>
-
   <script>
     function selectTemplate(templateId) {
-      // ✅ Lưu template đã chọn
       localStorage.setItem('selectedTemplate', templateId);
-
-      // ✅ Chuyển sang màn apply-template
       window.location.href = 'apply-template.html';
     }
   </script>
