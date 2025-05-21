@@ -21,8 +21,8 @@ if (registerForm) {
 
       if (res.ok) {
         alert(result.message || 'Đăng ký thành công!');
-        // 👉 Tuỳ chọn: Chuyển hướng tới trang đăng nhập
-        // window.location.href = 'login.html';
+        // ✅ Chuyển sang trang đăng nhập
+        window.location.href = 'login.html';
       } else {
         alert(result.message || 'Đăng ký thất bại!');
       }
@@ -56,7 +56,7 @@ if (loginForm) {
       if (res.ok) {
         alert(result.message || 'Đăng nhập thành công!');
         // ✅ Sau khi đăng nhập thành công → chuyển đến menu chính
-        window.location.href = 'dashboard.html'; // ← Đảm bảo file này tồn tại
+        window.location.href = 'dashboard.html';
       } else {
         alert(result.message || 'Đăng nhập thất bại!');
       }
