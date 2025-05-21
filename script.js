@@ -19,7 +19,7 @@ if (registerForm) {
 
       const result = await res.json();
 
-      if (res.ok) {
+      if (res.ok || result.message === 'Đăng ký thành công!') {
         alert(result.message || 'Đăng ký thành công!');
         // ✅ Chuyển sang trang đăng nhập
         window.location.href = 'login.html';
@@ -53,9 +53,9 @@ if (loginForm) {
 
       const result = await res.json();
 
-      if (res.ok) {
+      if (res.ok || result.message === 'Đăng nhập thành công!') {
         alert(result.message || 'Đăng nhập thành công!');
-        // ✅ Sau khi đăng nhập thành công → chuyển đến menu chính
+        // ✅ Chuyển đến dashboard
         window.location.href = 'dashboard.html';
       } else {
         alert(result.message || 'Đăng nhập thất bại!');
@@ -63,6 +63,41 @@ if (loginForm) {
     } catch (error) {
       alert('Đăng nhập lỗi. Vui lòng thử lại sau.');
       console.error('Đăng nhập lỗi:', error);
+    }
+  });
+}
+
+// ======================
+// XỬ LÝ NHẬP THÔNG TIN CÁ NHÂN
+// ======================
+const infoForm = document.getElementById('info-form');
+if (infoForm) {
+  infoForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const fullname = this.fullname.value;
+    const email = this.email.value;
+    const phone = this.phone.value;
+
+    try {
+      const res = await fetch('https://downloadfreeyourcv.onrender.com/info', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullname, email, phone })
+      });
+
+      const result = await res.json();
+
+      if (res.ok || result.message === 'Lưu thông tin thành công!') {
+        alert(result.message || 'Lưu thành công!');
+        // ✅ Chuyển tới bước tiếp theo (ví dụ: chọn template)
+        window.location.href = 'choose-template.html'; // Đổi tên theo thực tế
+      } else {
+        alert(result.message || 'Không thể lưu thông tin!');
+      }
+    } catch (error) {
+      alert('Lỗi khi lưu thông tin cá nhân.');
+      console.error('Lỗi info:', error);
     }
   });
 }
