@@ -48,8 +48,8 @@ if (loginForm) {
 
       if (res.ok) {
         alert(result.message || 'Đăng nhập thành công!');
-        // 👉 Tùy chọn: chuyển trang nếu cần
-        // window.location.href = 'dashboard.html';
+        // ✅ Sau khi đăng nhập thành công → chuyển hướng sang dashboard
+        window.location.href = 'dashboard.html'; // ← đổi tên file nếu khác
       } else {
         alert(result.message || 'Đăng nhập thất bại!');
       }
