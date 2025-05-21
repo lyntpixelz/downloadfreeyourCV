@@ -20,23 +20,30 @@ const User = mongoose.model('User', {
 
 app.post('/register', async (req, res) => {
   console.log("📥 req.body:", req.body);
-console.log("👉 fullname:", req.body.fullname);
-console.log("👉 email:", req.body.email);
-console.log("👉 password:", req.body.password);
+
   const { fullname, email, password } = req.body;
 
+  // ✅ Kiểm tra dữ liệu sau khi destructuring
+  if (!fullname || !email || !password) {
+    console.log("❗ Thiếu dữ liệu đầu vào!");
+    return res.status(400).json({ message: 'Dữ liệu không hợp lệ' });
+  }
+
+  console.log("👉 fullname:", fullname);
+  console.log("👉 email:", email);
+  console.log("👉 password:", password);
+
   const exists = await User.findOne({ email });
-  if (exists) return res.json({ message: 'Email đã tồn tại.' });
+  if (exists) {
+    console.log("⚠️ Email đã tồn tại:", email);
+    return res.json({ message: 'Email đã tồn tại.' });
+  }
 
   const newUser = new User({ fullname, email, password });
   await newUser.save();
 
+  console.log("✅ Lưu thành công:", newUser);
   res.json({ message: 'Đăng ký thành công!' });
 });
 
 app.listen(3000, () => console.log('🚀 Server chạy tại http://localhost:3000'));
-if (!fullname || !email || !password) {
-  console.log("❗ Thiếu dữ liệu đầu vào!");
-  return res.status(400).json({ message: 'Dữ liệu không hợp lệ' });
-}
-
