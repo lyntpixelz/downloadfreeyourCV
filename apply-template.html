@@ -11,6 +11,7 @@
       padding: 20px;
       border: 2px solid #ccc;
       background-color: #f9f9f9;
+      font-family: Arial, sans-serif;
     }
     .cv-header {
       text-align: center;
@@ -19,9 +20,25 @@
     .cv-section {
       margin-bottom: 15px;
     }
+
+    /* Template styles - thay đổi tùy theo templateId */
+    .template1 .cv-preview {
+      background-color: #fefefe;
+      border-color: #3498db;
+    }
+
+    .template2 .cv-preview {
+      background-color: #fffaf0;
+      border-color: #e67e22;
+    }
+
+    .template3 .cv-preview {
+      background-color: #f0f9ff;
+      border-color: #2ecc71;
+    }
   </style>
 </head>
-<body>
+<body class="" id="template-body">
   <header class="navbar">
     <a href="dashboard.html" class="logo">Tạo CV</a>
   </header>
@@ -38,7 +55,6 @@
         <strong>Giới thiệu bản thân</strong>
         <p>Chưa có nội dung...</p>
       </div>
-      <!-- Có thể bổ sung thêm phần kỹ năng, kinh nghiệm, học vấn -->
     </div>
 
     <div style="text-align:center; margin-top: 20px;">
@@ -47,17 +63,28 @@
   </main>
 
   <script>
-    // Lấy thông tin từ localStorage (hoặc bạn có thể dùng API)
+    // Lấy dữ liệu từ localStorage
     const info = JSON.parse(localStorage.getItem('userInfo')) || {};
     const templateId = localStorage.getItem('selectedTemplate') || 'template1';
 
+    // Gán dữ liệu vào CV
     document.getElementById('cv-fullname').innerText = info.fullname || 'Họ tên';
     document.getElementById('cv-email').innerText = info.email || 'Email';
     document.getElementById('cv-phone').innerText = info.phone || 'Số điện thoại';
 
+    // Gán class template cho <body> để đổi style
+    document.getElementById('template-body').classList.add(templateId);
+
     function saveCV() {
-      alert('CV đã được lưu (chức năng lưu thực hiện sau).');
-      // Có thể gọi API POST tới /save-cv nếu muốn lưu vào MongoDB
+      alert('CV đã được lưu (tính năng lưu vào MongoDB sẽ thêm sau)');
+      // Tùy chọn: Gửi POST đến API /save-cv
+      /*
+      fetch('https://your-api/save-cv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...info, template: templateId })
+      });
+      */
     }
   </script>
 </body>
