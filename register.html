@@ -18,6 +18,35 @@
       <button type='submit' class='btn primary'>Đăng ký</button>
     </form>
   </main>
-  <script src='script.js'></script>
+
+  <!-- ✅ JavaScript xử lý đăng ký -->
+  <script>
+    const registerForm = document.getElementById('register-form');
+    if (registerForm) {
+      registerForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const formData = {
+          fullname: this.fullname.value,
+          email: this.email.value,
+          password: this.password.value
+        };
+
+        try {
+          const res = await fetch('https://downloadfreeyourcv.onrender.com/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+
+          const result = await res.json();
+          alert(result.message || 'Đăng ký thành công!');
+        } catch (error) {
+          alert('Đăng ký thất bại. Vui lòng thử lại sau.');
+          console.error(error);
+        }
+      });
+    }
+  </script>
 </body>
 </html>
