@@ -19,8 +19,10 @@ const User = mongoose.model('User', {
 });
 
 app.post('/register', async (req, res) => {
-  console.log("📥 Dữ liệu nhận được:", req.body);
-
+  console.log("📥 req.body:", req.body);
+console.log("👉 fullname:", req.body.fullname);
+console.log("👉 email:", req.body.email);
+console.log("👉 password:", req.body.password);
   const { fullname, email, password } = req.body;
 
   const exists = await User.findOne({ email });
@@ -33,3 +35,4 @@ app.post('/register', async (req, res) => {
 });
 
 app.listen(3000, () => console.log('🚀 Server chạy tại http://localhost:3000'));
+
