@@ -38,15 +38,20 @@
 
         const result = await res.json();
 
-        if (res.ok) {
+        if (res.ok || result.message === 'Lưu thông tin thành công!') {
           alert(result.message || 'Lưu thông tin thành công!');
-          window.location.href = 'choose-template.html'; // 🔄 hoặc chuyển bước tiếp theo
+          
+          // ✅ Lưu vào localStorage để dùng ở apply-template.html
+          localStorage.setItem('userInfo', JSON.stringify(formData));
+
+          // ✅ Chuyển sang màn chọn template
+          window.location.href = 'template-list.html';
         } else {
           alert(result.message || 'Không thể lưu thông tin!');
         }
       } catch (error) {
         alert('Lỗi hệ thống khi lưu thông tin.');
-        console.error(error);
+        console.error('Lỗi:', error);
       }
     });
   </script>
