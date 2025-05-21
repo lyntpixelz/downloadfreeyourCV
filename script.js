@@ -1,5 +1,3 @@
-// Placeholder JavaScript
-console.log('Script loaded');
 document.getElementById('register-form').addEventListener('submit', async function (e) {
   e.preventDefault();
 
@@ -9,7 +7,7 @@ document.getElementById('register-form').addEventListener('submit', async functi
     password: this.password.value
   };
 
-  const res = await fetch('http://localhost:3000/register', {
+  const res = await fetch('https://downloadfreeyourcv.onrender.com/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData)
