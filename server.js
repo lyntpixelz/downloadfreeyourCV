@@ -12,26 +12,29 @@ mongoose.connect(uri)
   .then(() => console.log('✅ Kết nối MongoDB Atlas thành công'))
   .catch(err => console.error('❌ Lỗi kết nối MongoDB:', err));
 
+// === Mô hình User (đăng ký / đăng nhập)
 const User = mongoose.model('User', {
   fullname: String,
   email: String,
   password: String
 });
 
+// === Mô hình Info (Thông tin cá nhân)
+const Info = mongoose.model('Info', {
+  fullname: String,
+  email: String,
+  phone: String
+});
+
 // ✅ API đăng ký
 app.post('/register', async (req, res) => {
   console.log("📥 req.body:", req.body);
-
   const { fullname, email, password } = req.body;
 
   if (!fullname || !email || !password) {
     console.log("❗ Thiếu dữ liệu đầu vào!");
     return res.status(400).json({ message: 'Dữ liệu không hợp lệ' });
   }
-
-  console.log("👉 fullname:", fullname);
-  console.log("👉 email:", email);
-  console.log("👉 password:", password);
 
   const exists = await User.findOne({ email });
   if (exists) {
@@ -42,7 +45,7 @@ app.post('/register', async (req, res) => {
   const newUser = new User({ fullname, email, password });
   await newUser.save();
 
-  console.log("✅ Lưu thành công:", newUser);
+  console.log("✅ Đăng ký thành công:", newUser);
   res.json({ message: 'Đăng ký thành công!' });
 });
 
@@ -68,6 +71,22 @@ app.post('/login', async (req, res) => {
 
   console.log("✅ Đăng nhập thành công:", user.email);
   res.json({ message: 'Đăng nhập thành công!', user });
+});
+
+// ✅ API lưu thông tin cá nhân
+app.post('/info', async (req, res) => {
+  const { fullname, email, phone } = req.body;
+  console.log("📄 Nhận thông tin cá nhân:", { fullname, email, phone });
+
+  if (!fullname || !email) {
+    return res.status(400).json({ message: 'Thiếu họ tên hoặc email' });
+  }
+
+  const newInfo = new Info({ fullname, email, phone });
+  await newInfo.save();
+
+  console.log("✅ Lưu thông tin cá nhân thành công:", newInfo);
+  res.json({ message: 'Lưu thông tin thành công!' });
 });
 
 // ✅ Khởi động server
