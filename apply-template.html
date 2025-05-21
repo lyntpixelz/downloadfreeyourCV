@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Xem trước CV</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     .cv-preview {
       max-width: 800px;
@@ -11,7 +12,6 @@
       padding: 20px;
       border: 2px solid #ccc;
       background-color: #f9f9f9;
-      font-family: Arial, sans-serif;
     }
     .cv-header {
       text-align: center;
@@ -20,29 +20,12 @@
     .cv-section {
       margin-bottom: 15px;
     }
-
-    /* Template styles - thay đổi tùy theo templateId */
-    .template1 .cv-preview {
-      background-color: #fefefe;
-      border-color: #3498db;
-    }
-
-    .template2 .cv-preview {
-      background-color: #fffaf0;
-      border-color: #e67e22;
-    }
-
-    .template3 .cv-preview {
-      background-color: #f0f9ff;
-      border-color: #2ecc71;
-    }
   </style>
 </head>
-<body class="" id="template-body">
+<body id="template-body">
   <header class="navbar">
     <a href="dashboard.html" class="logo">Tạo CV</a>
   </header>
-
   <main class="container">
     <h2>Xem trước CV theo Template</h2>
     <div class="cv-preview" id="cv-preview">
@@ -56,35 +39,30 @@
         <p>Chưa có nội dung...</p>
       </div>
     </div>
-
     <div style="text-align:center; margin-top: 20px;">
       <button onclick="saveCV()">Lưu CV</button>
+      <button onclick="exportPDF()">Export Template (PDF)</button>
     </div>
   </main>
-
   <script>
-    // Lấy dữ liệu từ localStorage
     const info = JSON.parse(localStorage.getItem('userInfo')) || {};
     const templateId = localStorage.getItem('selectedTemplate') || 'template1';
-
-    // Gán dữ liệu vào CV
     document.getElementById('cv-fullname').innerText = info.fullname || 'Họ tên';
     document.getElementById('cv-email').innerText = info.email || 'Email';
     document.getElementById('cv-phone').innerText = info.phone || 'Số điện thoại';
-
-    // Gán class template cho <body> để đổi style
     document.getElementById('template-body').classList.add(templateId);
-
     function saveCV() {
-      alert('CV đã được lưu (tính năng lưu vào MongoDB sẽ thêm sau)');
-      // Tùy chọn: Gửi POST đến API /save-cv
-      /*
-      fetch('https://your-api/save-cv', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...info, template: templateId })
-      });
-      */
+      alert('CV đã được lưu (chức năng lưu thực hiện sau).');
+    }
+    function exportPDF() {
+      const element = document.getElementById('cv-preview');
+      html2pdf().set({
+        margin: 0.5,
+        filename: 'cv_export.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      }).from(element).save();
     }
   </script>
 </body>
