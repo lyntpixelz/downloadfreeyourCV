@@ -1,20 +1,38 @@
 <!DOCTYPE html>
-<html lang='vi'>
+<html lang="vi">
 <head>
-  <meta charset='UTF-8'>
-  <title>Danh sách Template</title>
-  <link rel='stylesheet' href='style.css'>
+  <meta charset="UTF-8">
+  <title>Chọn Template</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class='navbar'>
-    <a href='dashboard.html' class='logo'>Tạo CV</a>
+  <header class="navbar">
+    <a href="dashboard.html" class="logo">Tạo CV</a>
   </header>
-  <main class='container'>
-    <h2>Danh sách Template</h2>
-    <div class='grid' id='templates'>
-      <!-- Template items --> 
+
+  <main class="container">
+    <h2>Chọn một mẫu CV</h2>
+    <div class="template-grid">
+      <div class="template-card">
+        <img src="templates/template1.png" alt="Template 1">
+        <button onclick="selectTemplate('template1')">Chọn</button>
+      </div>
+      <div class="template-card">
+        <img src="templates/template2.png" alt="Template 2">
+        <button onclick="selectTemplate('template2')">Chọn</button>
+      </div>
+      <!-- Thêm bao nhiêu mẫu tùy ý -->
     </div>
   </main>
-  <script src='script.js'></script>
+
+  <script>
+    function selectTemplate(templateId) {
+      // 👉 Lưu template đã chọn vào localStorage (hoặc gọi API nếu cần)
+      localStorage.setItem('selectedTemplate', templateId);
+
+      // 👉 Chuyển tới bước tiếp theo
+      window.location.href = 'apply-template.html';
+    }
+  </script>
 </body>
 </html>
