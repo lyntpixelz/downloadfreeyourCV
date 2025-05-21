@@ -12,11 +12,35 @@
   <main class='container'>
     <h2>Đăng nhập</h2>
     <form id='login-form'>
-      <input type='email' placeholder='Email' required>
-      <input type='password' placeholder='Mật khẩu' required>
+      <input type='email' name='email' placeholder='Email' required>
+      <input type='password' name='password' placeholder='Mật khẩu' required>
       <button type='submit' class='btn primary'>Đăng nhập</button>
     </form>
   </main>
-  <script src='script.js'></script>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const email = this.email.value;
+      const password = this.password.value;
+
+      const res = await fetch('https://downloadfreeyourcv.onrender.com/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        alert(result.message || 'Đăng nhập thành công!');
+        // 👉 Bạn có thể chuyển hướng người dùng tại đây nếu muốn:
+        // window.location.href = 'dashboard.html';
+      } else {
+        alert(result.message || 'Đăng nhập thất bại!');
+      }
+    });
+  </script>
 </body>
 </html>
